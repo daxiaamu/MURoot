@@ -10,13 +10,18 @@ LIMIT=256*1024*1024
 class HttpsOnlyRedirect(urllib.request.HTTPRedirectHandler):
     def redirect_request(self,req,fp,code,msg,headers,newurl):
         if urllib.parse.urlparse(newurl).scheme!='https':raise ValueError('HTTPS downgrade')
-        return super().redirect_request(req,fp,code,msg,headers,newurl)
+        redirected=super().redirect_request(req,fp,code,msg,headers,newurl)
+        if redirected and urllib.parse.urlparse(newurl).hostname!='api.github.com':redirected.remove_header('Authorization')
+        return redirected
 def https(url):
     p=urllib.parse.urlparse(url)
     if p.scheme!='https' or not p.hostname or p.username or p.password:raise ValueError('Invalid HTTPS URL')
     return p
 def get(url,path=None,limit=1024*1024):
-    https(url);request=urllib.request.Request(url,headers={'User-Agent':'MuRoot-release','Cache-Control':'no-cache','Accept':'application/vnd.github+json'})
+    parsed=https(url);headers={'User-Agent':'MuRoot-release','Cache-Control':'no-cache','Accept':'application/vnd.github+json'}
+    token=os.environ.get('GH_TOKEN') or os.environ.get('GITHUB_TOKEN')
+    if parsed.hostname=='api.github.com' and token:headers['Authorization']='Bearer '+token
+    request=urllib.request.Request(url,headers=headers)
     opener=urllib.request.build_opener(HttpsOnlyRedirect())
     started=time.monotonic();digest=hashlib.sha256();size=0;chunks=[]
     with opener.open(request,timeout=15) as response:
