@@ -1,0 +1,40 @@
+name: Publish verified OTA metadata
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing Release tag
+        required: true
+permissions:
+  contents: write
+concurrency:
+  group: muroot-public-ota
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Generate from the released client and verify CDN bytes
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        run: |
+          python -m pip install pefile==2024.8.26
+          python .github/scripts/publish_metadata.py --repository daxiaamu/MURoot --tag "$RELEASE_TAG"
+      - name: Publish pointer and immutable manifest atomically
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add updates/manifests updates/latest-*.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Publish verified OTA metadata"
+          git pull --rebase origin main
+          git push origin HEAD:main
