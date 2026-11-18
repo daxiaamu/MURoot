@@ -42,8 +42,11 @@ def check_candidate(url,size,digest):
         with tempfile.TemporaryDirectory() as directory:
             got,hash_value=get(url,Path(directory)/'artifact.zip',size)
         if got!=size or hash_value!=digest:return None
+        print('Verified CDN:',https(url).hostname,flush=True)
         return url
-    except Exception:return None
+    except Exception as error:
+        print('Unavailable CDN:',https(url).hostname,type(error).__name__,getattr(error,'code',''),flush=True)
+        return None
 def sources(repo,path):
     return [f'https://raw.githubusercontent.com/{repo}/main/{path}',
         f'https://cdn.jsdelivr.net/gh/{repo}@main/{path}',f'https://fastly.jsdelivr.net/gh/{repo}@main/{path}',
