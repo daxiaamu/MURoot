@@ -1,5 +1,5 @@
 {
   "maxForcedVersionCode": 0,
-  "policyRevision": 1,
-  "reason": "Initial optional stable release"
+  "policyRevision": 3,
+  "reason": "1.1.4: maintenance release; packaging guard keeps runtime root to MuRoot.exe only"
 }
