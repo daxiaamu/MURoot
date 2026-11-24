@@ -1,13 +1,12 @@
 [
-  "https://ghfast.top/{officialUrl}",
-  "https://gh-proxy.com/{officialUrl}",
-  "https://ghproxy.net/{officialUrl}",
-  "https://gh.llkk.cc/{officialUrl}",
   "https://ghp.keleyaa.com/{officialUrl}",
-  "https://gh.monlor.com/{officialUrl}",
-  "https://xget.xi-xu.me/gh/{repository}/releases/download/{tag}/{asset}",
-  "https://ghproxy.vip/{officialUrl}?sha={sha256}",
-  "https://gh.jasonzeng.dev/{officialUrl}",
   "https://gh.3w.pm/{officialUrl}",
-  "https://gh-proxy.org/{officialUrl}"
+  "https://gh-proxy.com/{officialUrl}",
+  "https://gh.monlor.com/{officialUrl}",
+  "https://gh-proxy.org/{officialUrl}",
+  "https://ghfast.top/{officialUrl}",
+  "https://cdn.crashmc.com/{officialUrl}",
+  "https://ghproxy.vip/{officialUrl}?sha={sha256}",
+  "https://ghproxy.net/{officialUrl}",
+  "https://gh.idayer.com/{officialUrl}"
 ]
