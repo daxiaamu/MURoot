@@ -7,6 +7,5 @@
   "https://ghfast.top/{officialUrl}",
   "https://cdn.crashmc.com/{officialUrl}",
   "https://ghproxy.vip/{officialUrl}?sha={sha256}",
-  "https://ghproxy.net/{officialUrl}",
-  "https://gh.idayer.com/{officialUrl}"
+  "https://ghproxy.net/{officialUrl}"
 ]

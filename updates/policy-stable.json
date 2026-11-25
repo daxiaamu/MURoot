@@ -1,5 +1,5 @@
 {
   "maxForcedVersionCode": 0,
-  "policyRevision": 5,
-  "reason": "1.1.5: merge Shark 2.6.26 payloads and 8 new selector rows"
+  "policyRevision": 6,
+  "reason": "1.1.6: rebuild update-check sources around reachable mirrors"
 }
